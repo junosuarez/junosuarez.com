@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <title>juno suárez is a lead engineer and systems practitioner in portland, oregon</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="lang" content="en-us">
+    <link rel="icon"type="image/png" href="favicon.png">
+    <style>
+      :root {
+      --primary-color: #9D1EE1;
+      }
+      body {
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color:papayawhip;
+      }
+      p {
+        font-size: 1.5em;
+        color: #443;
+
+      }
+      p strong {
+        color: #101010;
+        font-style: normal;
+      }
+
+      .title {
+        /* margin-top: 2em; */
+        /* margin-left: 2em; */
+        margin: 2em auto 1em;
+        width: 300px;
+      }
+      .title:before {
+        background: var(--primary-color);
+        border-radius: 50%;
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: middle;
+        margin-right: .5em;
+        display: inline-block;
+        content: ""
+      }
+      main {
+        /* min-width: 13em; */
+        margin: 2em;
+      }
+       @media only screen and (min-width: 600px) {
+         main {
+          max-width: 50vw;
+          margin:auto;
+        }
+        .box {
+          flex: 1;
+        }
+        .box:nth-child(2n) {
+        margin-left: .5em;
+      }
+      }
+      .box {
+        /* float: left; */
+        border: 1px solid black;
+        padding: .5em;
+        border-radius: 2px;
+        /* display: block; */
+        /* min-width: 40%; */
+        /* flex: 1; */
+        margin: .5em 0;
+        text-align: center;
+      }
+
+      .box::after {
+        font-style:normal;
+        content: "↓";
+        display: block;
+        height: 0px;
+        overflow:visible;
+        width: 100%;
+        text-align:center;
+        position:relative;
+        top: .5em;
+        margin-bottom: .1em;
+        /* margin-top: 1em; */
+      }
+      .result {
+        border: 4px double black;
+        border-radius: 1em;
+        padding: .5em;
+        clear: both;
+        margin: .5em 0;
+        /* margin-left: 0; */
+        text-align: center;
+      }
+      .hov:hover{
+        border-color: var(--primary-color);
+        background-color:thistle;
+      }
+      .hov:hover::after {
+        color: var(--primary-color)
+      }
+      .container {
+        display:flex;
+        background:hsl(36, 100%, 96%);
+        border-radius: 4px;
+        flex-wrap: wrap;
+        align-content: space-between;
+        padding: 2em;
+        margin: 0 -2em;
+        font-style: italic;
+
+        /* margin-left:-1.5em; */
+      }
+      .emoji {
+        font-size: 150%;
+        display:block;
+        text-align: center;
+      }
+      aside {
+        text-align: justify;
+      }
+</style>
+
+  </head>
+  <body>
+    <h1 class="title">juno suárez</h1>
+    <main>
+      <article class="container">
+    <p class="box hov">as an <strong>engineer/leader</strong>,<br/> I
+      create conditions of psychological&nbsp;safety, common&nbsp;ground, and continuous learning&nbsp;&amp;&nbsp;leverage
+    </p>
+
+      <p class="box hov">as a <strong>systems practitioner</strong>,<br/> I focus on the relations &amp; feedback&nbsp;loops between people, technology, and organizations
+    </p>
+    <p class="result hov">I unlock resiliency & agile&nbsp;performance in cross-functional software&nbsp;engineering&nbsp;teams</p>
+    </article>
+
+    <aside>
+    <p>Hi &mdash; I led GraphQL and Relay adoption in Twitter's web platform org until November 2022. I'm currently pursuing independent research on open&nbsp;source social technologies.
+      <p>Previously Zendesk, Code for America, and mission-aligned startups. I'm an <a href="https://member.acm.org/~junosuarez" rel="me noopener noreferrer">ACM professional member</a>.</p>
+    <p class="contact">Find me on <a href="https://www.linkedin.com/in/pdxsuarez/" rel="me noopener noreferrer">LinkedIn</a>, <a href="https://github.com/junosuarez" rel="me noopener noreferrer">GitHub</a>, and <a href="https://hachyderm.io/@juno" rel="me noopener noreferrer">Mastodon</a>.</p>
+    <p><span class="emoji" aria-label="">✨</span>
+    </aside>
+    </main>
+
+  </body>
+</html>
+

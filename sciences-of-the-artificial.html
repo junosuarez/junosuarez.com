@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Guide to The Sciences of the Artificial (1969) by Herbert A. Simon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://junosuarez.org/js/htmx.1.9.10.min.js"></script>
+    <style>
+      :root {
+        --bg-dark: #111827;
+        --text-dark: #d1d5db;
+        --header-dark: #f9fafb;
+        --accent-dark: #818cf8;
+        --card-bg-dark: #1f2937;
+        --border-dark: #374151;
+        --highlight-bg-dark: #312e81;
+        --highlight-border-dark: #a5b4fc;
+      }
+      html {
+        color-scheme: dark;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+        line-height: 1.6;
+        margin: 0;
+        padding: 2rem 1rem;
+      }
+      main {
+        max-width: 896px;
+        margin: auto;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Lora", serif;
+        color: var(--header-dark);
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--accent-dark);
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+      a {
+        color: var(--accent-dark);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      #controls {
+        margin-bottom: 2.5rem;
+      }
+      .view-switcher {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: var(--card-bg-dark);
+        border: 1px solid var(--border-dark);
+        padding: 0.25rem;
+        border-radius: 0.5rem;
+      }
+      .view-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        background: none;
+        color: var(--text-dark);
+        cursor: pointer;
+        border-radius: 0.375rem;
+        transition: background-color 0.2s;
+      }
+      .view-btn.active {
+        background-color: var(--accent-dark);
+        color: var(--bg-dark);
+        font-weight: 600;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+      .theme-card {
+        background-color: var(--card-bg-dark);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-dark);
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .theme-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      }
+      .accordion-item {
+        background-color: var(--card-bg-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .accordion-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 1.25rem;
+        background: none;
+        border: none;
+        color: var(--accent-dark);
+        cursor: pointer;
+        text-align: left;
+      }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        padding: 0 1.25rem;
+      }
+      .relevance-highlight {
+        background-color: var(--highlight-bg-dark);
+        border-left: 4px solid var(--highlight-border-dark);
+        padding: 1rem;
+        border-radius: 0.25rem;
+        margin-top: 1rem;
+      }
+      .keyword-link {
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        text-underline-offset: 2px;
+        cursor: pointer;
+      }
+      .search-highlight {
+        background-color: #fde047;
+        color: #422006;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1 style="margin-bottom: 0">The Sciences of the Artificial</h1>
+        <p style="margin-top: 0">
+          By Herbert A. Simon (1969). Pages refer to 3rd ed. MIT Press, 1996.
+        </p>
+        <p style="font-size: 1.25rem; max-width: 48rem; margin: 1rem auto 0">
+          An Interactive Reading Guide for Engineers
+        </p>
+      </header>
+
+      <div id="controls">
+        <div style="position: relative; margin-bottom: 1rem">
+          <input
+            type="search"
+            id="search-input"
+            name="q"
+            placeholder="Search for concepts..."
+            style="
+              width: 100%;
+              padding: 1rem 1rem 1rem 2.5rem;
+              border-radius: 0.5rem;
+              border: 1px solid var(--border-dark);
+              background-color: var(--card-bg-dark);
+              color: var(--text-dark);
+              font-size: 16px;
+            "
+          />
+        </div>
+        <div style="display: flex; justify-content: center">
+          <div class="view-switcher">
+            <a href="#/hub" class="view-btn">Hub View</a>
+            <a href="#/toc" class="view-btn">ToC View</a>
+            <a href="#/keywords" class="view-btn">Keywords</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="content-area">
+        <!-- Content will be loaded here -->
+      </div>
+    </main>
+
+    <script>
+      const guideData = [
+        {
+          id: "foundations",
+          title: "I. Foundational Concepts",
+          icon: "🏛️",
+          description:
+            "Core vocabulary for thinking about agents as goal-directed systems.",
+          chapters: [
+            {
+              title:
+                "Chapter 1: Understanding the Natural and Artificial Worlds",
+              concepts: [
+                {
+                  title: "The Artificial (p. 3)",
+                  definition:
+                    'Defines "artificial" as man-made, emphasizing that such systems are shaped by goals or purposes to their environment, unlike natural phenomena. This sets the stage for thinking about agents as goal-directed constructs.',
+                  relevance:
+                    "This is the starting point. An agent is an artifact we build, and its behavior is only meaningful in the context of the goals we give it and the environment it must adapt to.",
+                },
+                {
+                  title: 'The Artifact As "Interface" (p. 6)',
+                  definition:
+                    'An artifact (or agent) can be viewed as an interface between an "inner" environment (its internal organization) and an "outer" environment (its surroundings). This is a fundamental model for agent-environment interaction.',
+                  relevance:
+                    "This is the fundamental model for agent-environment interaction. It frames the core engineering challenge: designing the agent's internal mechanisms to effectively perceive, reason, and act within its external context.",
+                },
+                {
+                  title: "Functional Explanation (p. 7)",
+                  definition:
+                    "Often, an agent's behavior can be predicted from its goals and outer environment, with minimal assumptions about its internal workings. This supports functional design of agents.",
+                  relevance:
+                    "This justifies a black-box or functional approach to design and testing. If an agent reliably achieves its goals, its specific internal implementation is secondary.",
+                },
+                {
+                  title: "Understanding by Simulating (p. 13)",
+                  definition:
+                    "Simulation is a powerful technique for understanding systems, even poorly understood ones, by abstracting from physical detail. Essential for modeling, testing, and debugging agent behaviors.",
+                  relevance:
+                    "Simulation is essential for modeling agent behaviors, testing hypotheses in a controlled setting, and debugging complex interactions before deployment.",
+                },
+                {
+                  title: "Symbol Systems: Rational Artifacts (p. 21)",
+                  definition:
+                    "Computers and human minds are physical symbol systems, whose primary purpose is adaptivity to an environment as goal-seeking, information-processing systems. This is the core definition for agentic systems.",
+                  relevance:
+                    "This is the core definition of an agent. It treats intelligence as a computational process of manipulating symbols to achieve goals.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "decision-making",
+          title: "II. Agent Decision-Making",
+          icon: "⚖️",
+          description:
+            "How agents make decisions under real-world constraints.",
+          chapters: [
+            {
+              title: "Chapter 2: Economic Rationality: Adaptive Artifice",
+              concepts: [
+                {
+                  title: "Procedural Rationality (p. 26)",
+                  definition:
+                    'Addresses how agents actually find "good" solutions in complex, uncertain, and information-limited circumstances, shifting from finding the best action to finding a way of calculating a good action.',
+                  relevance:
+                    "This is the essence of practical agent design. Your agent won't operate with perfect information or unlimited compute. You need to design algorithms that find good-enough actions efficiently.",
+                },
+                {
+                  title: "Satisficing and Aspiration Levels (p. 28)",
+                  definition:
+                    'Real-world optimization is often impossible; agents should be designed to satisfice, accepting "good enough" alternatives based on adjusting aspiration levels.',
+                  relevance:
+                    "This is a core design principle for agents in complex or unpredictable environments. Don't let the agent get stuck searching for a perfect solution that may not exist. Design it to find a workable one and move on.",
+                },
+                {
+                  title: "Uncertainty and Expectations (p. 35)",
+                  definition:
+                    "Emphasizes that robust adaptive procedures (feedback, homeostatic mechanisms) are often more effective than precise predictions for coping with environmental change.",
+                  relevance:
+                    "Build resilient agents. Instead of trying to predict the future perfectly, give your agent mechanisms to sense and respond to its environment in real-time.",
+                },
+                {
+                  title: "The Theory of Games (p. 37)",
+                  definition:
+                    'Demonstrates that "unbounded rationality" can lead to intractability in multi-agent competitive situations, whereas bounded rationality can produce better, more stable outcomes.',
+                  relevance:
+                    "When designing multi-agent systems, assuming perfectly rational, adversarial agents can be misleading. Modeling agents with more realistic, bounded rationality often produces more predictive and stable simulations.",
+                },
+                {
+                  title: "The Evolutionary Model (p. 45)",
+                  definition:
+                    "Introduces the generator-test cycle for evolution, contrasting deliberate selection with natural selection, and discussing local vs. global maxima.",
+                  relevance:
+                    'This provides a mental model for agent learning. The agent "generates" actions or hypotheses and "tests" them against its goals and environment, adapting over time.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "cognition",
+          title: "III. Agent Cognition & Learning",
+          icon: "🧠",
+          description:
+            "Using human psychology as an analogy for designing artificial minds.",
+          chapters: [
+            {
+              title: "Chapter 3: The Psychology of Thinking",
+              concepts: [
+                {
+                  title: "Human Beings as Simple Behaving Systems (p. 53)",
+                  definition:
+                    "The apparent complexity of human behavior often stems from the complexity of the environment, implying simpler underlying cognitive mechanisms.",
+                  relevance:
+                    "A guiding principle for architecture: strive for simplicity. A powerful agent can emerge from a simple set of rules interacting with a rich task environment.",
+                },
+                {
+                  title: "The Limits on Performance (p. 59)",
+                  definition:
+                    "Identifies key human information-processing constraints: short-term memory capacity (~7 chunks) and long-term memory fixation time (~8 seconds per chunk).",
+                  relevance:
+                    'These are critical parameters to consider when designing agents with constrained resources or when trying to model human-like limitations. It informs the design of an agent\'s "working memory" or context window.',
+                },
+                {
+                  title: "The Organization of Memory (p. 68)",
+                  definition:
+                    "Memory is organized associatively, often using list structures (lists containing other lists) and descriptive components, which explains various storage phenomena.",
+                  relevance:
+                    "This provides direct inspiration for designing an agent's knowledge base and internal memory structures, suggesting graph or tree-based data structures.",
+                },
+              ],
+            },
+            {
+              title: "Chapter 4: Remembering and Learning",
+              concepts: [
+                {
+                  title: "Intuition (p. 89)",
+                  definition:
+                    'Explained as acts of recognition based on a large store of familiar patterns ("chunks") and associated information.',
+                  relevance:
+                    'This gives a model for building fast, reactive inference. An agent\'s "intuition" can be engineered through pattern-recognition mechanisms that trigger actions without slow, deliberate reasoning.',
+                },
+                {
+                  title: "Understanding and Representation (p. 94)",
+                  definition:
+                    "Problem-solving begins by creating a problem representation (problem space) using symbolic constructs. Crucial for agents that need to interpret problems or data from their environment.",
+                  relevance:
+                    "This is the first step in any agent's reasoning loop. The agent must parse its input and environment into an internal model (representation) that its algorithms can work with. The choice of representation is critical.",
+                },
+                {
+                  title: "Production Systems (p. 102)",
+                  definition:
+                    "A program structure (Condition -> Action) well-suited for learning systems due to its simplicity and uniformity, allowing easy modification.",
+                  relevance:
+                    "This is a common and practical architecture for rule-based agents and learning systems. It's modular, interpretable, and easy to update.",
+                },
+                {
+                  title: "Learning from Examples (p. 103)",
+                  definition:
+                    "Describes how adaptive production systems can acquire new skills by analyzing worked-out examples and inferring new productions.",
+                  relevance:
+                    "This is directly applicable to agent training. It's the principle behind imitation learning and programming by demonstration.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "design",
+          title: "IV. Designing Complex Agents",
+          icon: "⚙️",
+          description:
+            "A masterclass in the philosophy of engineering complex systems.",
+          chapters: [
+            {
+              title: "Chapter 5: The Science of Design",
+              concepts: [
+                {
+                  title: "Means-Ends Analysis (p. 121)",
+                  definition:
+                    "A powerful, broadly applicable problem-solving technique for goal-directed action, linking detected differences between current and desired states to actions that reduce those differences.",
+                  relevance:
+                    "This is a fundamental AI planning strategy and the core logic behind many agent reasoning loops. It's a structured way to break down a large problem into a sequence of actions.",
+                },
+                {
+                  title: "The Shape of the Design: Hierarchy (p. 128)",
+                  definition:
+                    "Complex systems are often structured hierarchically, allowing decomposition into semi-independent parts. This affects design efficiency and outcomes.",
+                  relevance:
+                    "This is a key principle for agent architecture. Use layered architectures, modular components, and clear separation of concerns to manage complexity.",
+                },
+                {
+                  title: "Representation of the Design (p. 131)",
+                  definition:
+                    "How changing the problem representation can dramatically simplify problem-solving.",
+                  relevance:
+                    "How an agent models its world and its task is paramount. Often, the hardest part of the problem is finding the right data structures and abstractions. Prompt engineering is a modern example of this principle.",
+                },
+              ],
+            },
+            {
+              title: "Chapter 6: Social Planning",
+              concepts: [
+                {
+                  title: "Finding the Limiting Resource (p. 143)",
+                  definition:
+                    "Correctly identifying bottlenecks (e.g., human attention vs. data volume) is crucial for effective design in information systems.",
+                  relevance:
+                    "This is critical for performance optimization. Before you optimize, you must correctly identify what is constraining your agent's performance.",
+                },
+                {
+                  title: "Prediction vs. Feedback (p. 147)",
+                  definition:
+                    "For long-term planning, robust adaptive procedures (homeostasis, feedback) are often more effective than precise prediction.",
+                  relevance:
+                    "This is the argument for reactive, adaptive agents over purely deliberative ones. Design agents that can course-correct based on real-world feedback.",
+                },
+                {
+                  title: "Designing Without Final Goals (p. 162)",
+                  definition:
+                    "Planning can proceed without fixed, ultimate goals, with new goals emerging through activity. Actions establish initial conditions for future stages.",
+                  relevance:
+                    "This has profound implications for designing open-ended, continuously learning agents. The agent's purpose may be to explore and create new objectives, not just fulfill a predefined one.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "complexity",
+          title: "V. Understanding Complexity",
+          icon: "🕸️",
+          description:
+            "Theoretical tools to analyze and describe complex, emergent behaviors.",
+          chapters: [
+            {
+              title: "Chapter 8: The Architecture of Complexity",
+              concepts: [
+                {
+                  title: "The Evolution of Complex Systems (p. 188)",
+                  definition:
+                    'The "watchmaker parable" demonstrates that complex forms evolve much faster if stable intermediate forms (subassemblies) exist.',
+                  relevance:
+                    "This is a powerful argument for iterative, modular development. Build and stabilize individual components (e.g., perception, planning, action execution) before combining them.",
+                },
+                {
+                  title: "Nearly Decomposable Systems (p. 197)",
+                  definition:
+                    "Intra-component linkages are stronger than inter-component linkages, separating high-frequency (internal) dynamics from low-frequency (inter-component) dynamics.",
+                  relevance:
+                    "This is the theoretical foundation for microservices, modular software design, and distributed agent architectures. It allows for parallel development and easier debugging.",
+                },
+                {
+                  title: "State Descriptions and Process Descriptions (p. 210)",
+                  definition:
+                    "Distinguishes between describing a system's state (what it is) and its processes (how it behaves or is made).",
+                  relevance:
+                    "This is crucial for agent modeling. An agent has an internal state (its knowledge base, its beliefs) and a set of processes (planning, acting). The interplay between them defines its behavior.",
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      const keywords = [
+        "Bounded Rationality",
+        "Satisficing",
+        "agent",
+        "interface",
+        "simulation",
+        "symbol",
+        "rationality",
+        "feedback",
+        "evolution",
+        "memory",
+        "representation",
+        "hierarchy",
+        "goals",
+      ];
+      keywords.sort((a, b) => b.length - a.length);
+      const keywordRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, "gi");
+
+      const slugify = (text) =>
+        text
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-");
+
+      function linkifyKeywords(text) {
+        return text.replace(
+          keywordRegex,
+          (match) =>
+            `<a href="#/search?q=${encodeURIComponent(
+              match
+            )}" class="keyword-link">${match}</a>`
+        );
+      }
+
+      const router = {
+        "#/hub": () => {
+          return `<div class="card-grid">${guideData
+            .map(
+              (section) => `
+                    <a href="#/section/${section.id}" class="theme-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <span style="font-size: 2.25rem; margin-right: 1rem;">${section.icon}</span>
+                            <h2>${section.title}</h2>
+                        </div>
+                        <p>${section.description}</p>
+                    </a>`
+            )
+            .join("")}
+                </div>`;
+        },
+        "#/section": (id) => {
+          const section = guideData.find((s) => s.id === id);
+          if (!section) return `<h2>Section not found</h2>`;
+          let html = `<h1 style="text-align: center; margin-bottom: 2.5rem;">${section.title}</h1>`;
+          section.chapters.forEach((chapter) => {
+            html += `<h2 style="margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 0.5rem;">${chapter.title}</h2>`;
+            chapter.concepts.forEach((concept) => {
+              html += `
+                            <div class="accordion-item">
+                                <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                                    <h3>${concept.title}</h3>
+                                    <span style="font-size: 1.5rem; font-weight: 300;">&plus;</span>
+                                </button>
+                                <div class="accordion-content">
+                                    <p>${linkifyKeywords(
+                                      concept.definition
+                                    )}</p>
+                                    <div class="relevance-highlight">
+                                        <h4>💡 Relevance for Engineers:</h4>
+                                        <p style="margin-top: 0.5rem;">${linkifyKeywords(
+                                          concept.relevance
+                                        )}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+            });
+          });
+          return html;
+        },
+        "#/toc": () => {
+          let html = `<div style="background-color: var(--card-bg-dark); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--border-dark);">`;
+          guideData.forEach((section) => {
+            html += `<h2 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">${section.title}</h2><ul>`;
+            section.chapters.forEach((chapter) => {
+              html += `<li style="margin-left: 1rem;"><h3 style="margin-top: 0.75rem; margin-bottom: 0.5rem;">${chapter.title}</h3><ul style="list-style-type: none; padding-left: 1rem;">`;
+              chapter.concepts.forEach((concept) => {
+                html += `<li style="margin-bottom: 0.5rem;"><a href="#/full-view/${slugify(
+                  concept.title
+                )}">${concept.title}</a></li>`;
+              });
+              html += `</ul></li>`;
+            });
+            html += `</ul>`;
+          });
+          return html + `</div>`;
+        },
+        "#/keywords": () => {
+          return `<div style="background-color: var(--card-bg-dark); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--border-dark);">
+                    <h2 style="text-align: center; margin-bottom: 1.5rem;">Key Concepts</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+                        ${[...keywords]
+                          .sort()
+                          .map(
+                            (kw) =>
+                              `<a href="#/search?q=${encodeURIComponent(
+                                kw
+                              )}" class="keyword-link" style="background-color: var(--highlight-bg-dark); color: var(--accent-dark); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; text-decoration: none;">${kw}</a>`
+                          )
+                          .join("")}
+                    </div>
+                </div>`;
+        },
+        "#/search": (params) => {
+          // html entity encode via text node
+          const searchTerm = document.createTextNode(
+            params.get("q").toLowerCase().trim()
+          ).textContent;
+          let html = `<h2 style="text-align: center; margin-bottom: 2rem;">Search Results for "${searchTerm}"</h2>`;
+          let found = false;
+          guideData.forEach((section) => {
+            section.chapters.forEach((chapter) => {
+              chapter.concepts.forEach((concept) => {
+                const conceptText =
+                  `${concept.title} ${concept.definition} ${concept.relevance}`.toLowerCase();
+                if (conceptText.includes(searchTerm)) {
+                  found = true;
+                  const highlight = (text, term) =>
+                    text.replace(
+                      new RegExp(term, "gi"),
+                      (match) =>
+                        `<span class="search-highlight">${match}</span>`
+                    );
+                  html += `<div style="background-color: var(--card-bg-dark); border-radius: 0.75rem; border: 1px solid var(--border-dark); margin-bottom: 1.5rem; padding: 1.5rem;">
+                                    <h4>${highlight(
+                                      concept.title,
+                                      searchTerm
+                                    )}</h4>
+                                    <p>${linkifyKeywords(
+                                      highlight(concept.definition, searchTerm)
+                                    )}</p>
+                                    <div class="relevance-highlight">
+                                        <h4>💡 Relevance for Engineers:</h4>
+                                        <p style="margin-top: 0.5rem;">${linkifyKeywords(
+                                          highlight(
+                                            concept.relevance,
+                                            searchTerm
+                                          )
+                                        )}</p>
+                                    </div>
+                                </div>`;
+                }
+              });
+            });
+          });
+          if (!found)
+            html += `<p style="text-align: center;">No concepts found.</p>`;
+          return html;
+        },
+        "#/full-view": (params, hash) => {
+          let html = "";
+          guideData.forEach((section) => {
+            html += `<h2 style="margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-dark); padding-bottom: 0.75rem;">${section.title}</h2>`;
+            section.chapters.forEach((chapter) => {
+              html += `<h3 style="margin-top: 2rem; margin-bottom: 1rem;">${chapter.title}</h3>`;
+              chapter.concepts.forEach((concept) => {
+                html += `<div id="${slugify(
+                  concept.title
+                )}" style="background-color: var(--card-bg-dark); border-radius: 0.75rem; border: 1px solid var(--border-dark); margin-bottom: 1.5rem; padding: 1.5rem;">
+                                <h4>${concept.title}</h4>
+                                <p>${linkifyKeywords(concept.definition)}</p>
+                                <div class="relevance-highlight">
+                                    <h4>💡 Relevance for Engineers:</h4>
+                                    <p style="margin-top: 0.5rem;">${linkifyKeywords(
+                                      concept.relevance
+                                    )}</p>
+                                </div>
+                            </div>`;
+              });
+            });
+          });
+          setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth", block: "center" });
+              element.style.outline = "2px solid var(--accent-dark)";
+              element.style.outlineOffset = "4px";
+              setTimeout(() => (element.style.outline = "none"), 2000);
+            }
+          }, 100);
+          return html;
+        },
+      };
+
+      function handleRouteChange() {
+        const contentArea = document.getElementById("content-area");
+        const hash = window.location.hash || "#/hub";
+        const [path, ...rest] = hash.split("?");
+        const query = rest.join("?");
+        const params = new URLSearchParams(query);
+        const pathParts = path.split("/");
+
+        const routeKey = pathParts.slice(0, 2).join("/");
+        const routeParam = pathParts[2];
+        const routeHash = hash.split("#")[2];
+
+        const renderFunc = router[routeKey];
+        if (renderFunc) {
+          contentArea.innerHTML = renderFunc(routeParam || params, routeHash);
+          htmx.process(contentArea);
+        } else {
+          contentArea.innerHTML = router["#/hub"]();
+        }
+        updateActiveButton(path);
+      }
+
+      function updateActiveButton(path) {
+        document
+          .querySelectorAll(".view-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        const mainView = path.split("/")[1];
+        const activeBtn = document.querySelector(`[href="#/${mainView}"]`);
+        if (activeBtn) {
+          activeBtn.classList.add("active");
+        } else {
+          document.querySelector(`[href="#/hub"]`).classList.add("active");
+        }
+      }
+
+      function toggleAccordion(button) {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector("span");
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+          content.style.padding = "0 1.25rem";
+          icon.innerHTML = "&plus;";
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+          content.style.padding = "1.25rem";
+          icon.innerHTML = "&minus;";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById("search-input");
+        let searchTimeout;
+        searchInput.addEventListener("keyup", () => {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            const query = searchInput.value;
+            if (query) {
+              window.location.hash = `#/search?q=${encodeURIComponent(query)}`;
+            } else {
+              window.location.hash = "#/hub";
+            }
+          }, 300);
+        });
+
+        window.addEventListener("hashchange", handleRouteChange);
+        handleRouteChange(); // Initial load
+      });
+    </script>
+    <footer>
+      <p style="margin-top: 1em; text-align: center">
+        <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a
+        ><img
+          src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+          alt=""
+          style="max-width: 1em; max-height: 1em; margin-left: 0.2em"
+        /><img
+          src="https://mirrors.creativecommons.org/presskit/icons/zero.svg"
+          alt=""
+          style="max-width: 1em; max-height: 1em; margin-left: 0.2em"
+        />
+        Prepared by
+        <a href="https://junosuarez.com" rel="me">Juno Suárez</a> with
+        assistance from Gemini Pro 2.5. If this is useful, please share or let
+        me know.
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,351 @@
+<html>
+  <head>
+    <title>concepts - juno suárez</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="lang" content="en-us" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <style>
+      :root {
+        --primary-color: #9d1ee1;
+      }
+      body {
+        font-family:
+          "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+        background-color: papayawhip;
+      }
+      p {
+        font-size: 1.5em;
+        color: #443;
+      }
+      .title {
+        margin: 2em auto 0.5em;
+        width: 300px;
+      }
+      .title:before {
+        background: var(--primary-color);
+        border-radius: 50%;
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: middle;
+        margin-right: 0.5em;
+        display: inline-block;
+        content: "";
+      }
+      main {
+        margin: 2em;
+      }
+      @media only screen and (min-width: 600px) {
+        main {
+          max-width: 50vw;
+          margin: auto;
+        }
+      }
+      .intro {
+        font-size: 1.2em;
+        color: #443;
+        font-style: italic;
+        margin-bottom: 2em;
+      }
+      dl {
+        margin: 0;
+      }
+      dt {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #101010;
+        margin-top: 1.2em;
+      }
+      dd {
+        font-size: 1.1em;
+        color: #443;
+        margin-left: 0;
+        margin-top: 0.3em;
+      }
+      .back {
+        margin-top: 2em;
+        text-align: center;
+      }
+      .back a {
+        color: var(--primary-color);
+      }
+      dd a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      dd a:hover {
+        text-decoration: underline;
+      }
+      dd cite {
+        font-style: italic;
+        color: #887;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">concepts</h1>
+    <main>
+      <p class="intro">
+        a list of high-value explanatory ideas, frameworks, models, and thinkers
+        for general purpose analysis, ideation, and problem solving. feel free to
+        import as assumed knowledge when helpful.
+      </p>
+      <dl>
+        <dt id="bayes">Bayesian reasoning</dt>
+        <dd>
+          Update your beliefs incrementally as new evidence shows up, rather
+          than waiting for proof. Priors are real and you should use them.
+        </dd>
+
+        <dt id="shannon">Shannon / information theory</dt>
+        <dd>
+          Communication has a speed limit set by the channel. Redundancy,
+          compression, and noise aren't just metaphors - they're the actual
+          structure of how information moves between systems.
+        </dd>
+
+        <dt id="latour">Latour / actor-network theory</dt>
+        <dd>
+          Agency is spread across human and nonhuman actors. If you strip out
+          the material, institutional, and technical mediators, you're leaving
+          out most of the story.
+        </dd>
+
+        <dt id="catastrophe-theory">catastrophe theory</dt>
+        <dd>
+          Smooth, continuous changes in conditions can produce sudden jumps in
+          outcomes. The discontinuity is baked into the geometry of the system,
+          not an anomaly. <cite>Thom</cite>
+        </dd>
+
+        <dt id="attractor-basins">attractor basins</dt>
+        <dd>
+          Systems settle into stable configurations. Knowing which basin you're
+          in, and what it takes to escape it, matters more than analyzing the
+          current position alone.
+        </dd>
+
+        <dt id="rugged-landscapes">rugged fitness landscapes</dt>
+        <dd>
+          Optimization surfaces are full of local peaks. Hill climbing alone
+          gets you stuck. The shape of the problem determines which search
+          strategies actually work. <cite>Wright</cite>
+        </dd>
+
+        <dt id="systems-theory">systems theory</dt>
+        <dd>
+          Behavior comes from the structure of
+          <a href="#stock-and-flow">feedback loops, stocks, flows</a>,
+          and delays - not from the intentions of individual parts. Leverage
+          points are often counterintuitive.
+        </dd>
+
+        <dt id="complex-adaptive-systems">complex adaptive systems</dt>
+        <dd>
+          Agents following simple local rules generate macro-level patterns
+          nobody designed. Emergence, adaptation, and
+          <a href="#path-dependence">path dependence</a> are
+          features, not bugs.
+        </dd>
+
+        <dt id="self-organized-criticality">self-organized criticality</dt>
+        <dd>
+          Many systems naturally drift toward a critical state where small
+          nudges can cascade at any scale. The sandpile doesn't need tuning to
+          produce avalanches. <cite>Bak</cite>
+        </dd>
+
+        <dt id="deep-time">deep time</dt>
+        <dd>
+          Thinking across geological and evolutionary timescales changes what
+          counts as fast, slow, stable, or transient. Most of what looks
+          permanent is just slow-moving.
+        </dd>
+
+        <dt id="satisficing">Herbert Simon / satisficing</dt>
+        <dd>
+          Optimal solutions are often computationally intractable or just
+          unknowable. Bounded rationality means choosing "good enough" on
+          purpose, not as a failure mode.
+        </dd>
+
+        <dt id="goodharts-law">Goodhart's law / proxy failure</dt>
+        <dd>
+          When a measure becomes a target, it stops being a good measure. But
+          proxy cascade offers a corrective: higher-level proxies can constrain
+          and correct lower-level proxy failure.
+        </dd>
+
+        <dt id="pace-layers">pace layers</dt>
+        <dd>
+          Different layers of a system move at different speeds, and that's
+          load-bearing. Fast layers innovate, slow layers stabilize. Problems
+          come from trying to force them into the same tempo. <cite>Brand</cite>
+        </dd>
+
+        <dt id="boundary-objects">boundary objects</dt>
+        <dd>
+          Things that sit between communities, plastic enough to mean something
+          different to each group but robust enough to hold the collaboration
+          together. Maps, standards, prototypes. <cite>Star & Griesemer</cite>
+        </dd>
+
+        <dt id="spin-glass">spin glass models</dt>
+        <dd>
+          Systems with competing, frustrated constraints that can't all be
+          satisfied at once. There's no clean global optimum, just a sprawl of
+          near-equivalent messy compromises. <cite>Parisi</cite>
+        </dd>
+
+        <dt id="phase-transitions">phase transitions</dt>
+        <dd>
+          At critical thresholds, more of the same input produces something
+          qualitatively different. The interesting behavior lives right at the
+          boundary between regimes.
+        </dd>
+
+        <dt id="affordances">affordances</dt>
+        <dd>
+          The environment doesn't just exist passively - it offers possibilities
+          for action. What you can do is a relationship between the agent and
+          the world, not a property of either alone. <cite>Gibson</cite>
+        </dd>
+
+        <dt id="coarse-graining">coarse-graining / multiple realizability</dt>
+        <dd>
+          The right level of description throws away detail on purpose. Many
+          different micro-configurations produce the same macro-behavior, and
+          that's what makes higher-level explanations legitimate, not just
+          convenient.
+        </dd>
+
+        <dt id="carving-at-the-joints">carving nature at the joints / scientific realism</dt>
+        <dd>
+          Some category boundaries track real structure in the world and others
+          are just conventions. Figuring out which is which is most of the work
+          in getting a model right. <cite>Plato, <i>via</i> Quine</cite>
+        </dd>
+
+        <dt id="markov-blankets">Markov blankets</dt>
+        <dd>
+          The statistical boundary between a system and its environment. What a
+          thing "is" can be defined by what it screens off. Identity as
+          conditional independence. <cite><i>via</i> Friston</cite>
+        </dd>
+
+        <dt id="wrights-law">Wright's law</dt>
+        <dd>
+          Cost drops as a function of cumulative production, not time. Every
+          doubling of units produced brings a consistent percentage reduction.
+          Learning is baked into doing.
+        </dd>
+
+        <dt id="umwelt">umwelt</dt>
+        <dd>
+          Every organism inhabits its own perceptual world. The tick's universe
+          has three relevant signals. Yours has more, but it's still a subset,
+          not the whole picture. <cite>von Uexküll</cite>
+        </dd>
+
+        <dt id="unicept">unicept</dt>
+        <dd>
+          A concept isn't a shared universal with a definition - it's a
+          particular nest of accumulated information belonging to one person.
+          Your "weight" and mine refer to whatever each of us has been
+          collecting information about, not to some agreed-upon paradigm.
+          A shared "concept" is really a fuzzy overlap of many unicepts.
+          <cite>Millikan</cite>
+        </dd>
+
+        <dt id="stpa">STPA (systems-theoretic process analysis)</dt>
+        <dd>
+          An analytical framework that models safety as a control problem
+          rather than a component reliability problem. Start from hazards, map
+          the control structure, find where constraints go unenforced.
+        </dd>
+
+        <dt id="stock-and-flow">stock and flow</dt>
+        <dd>
+          Stocks accumulate, flows change them. Most confusion about system
+          behavior comes from not tracking which is which. Bathtub dynamics are
+          surprisingly hard to intuit.
+          <cite><i>sensu</i> Meadows, Forrester</cite>
+        </dd>
+
+        <dt id="feedback">positive / negative feedback</dt>
+        <dd>
+          Negative feedback stabilizes, positive feedback amplifies. Most
+          interesting system behavior comes from the interplay between the two,
+          and knowing which one is dominant right now.
+        </dd>
+
+        <dt id="desire-paths">desire paths</dt>
+        <dd>
+          The trail worn into the grass tells you where people actually walk,
+          not where the planner wanted them to. Observed behavior is a more
+          honest signal than stated intent or designed flow.
+        </dd>
+
+        <dt id="annealing">annealing</dt>
+        <dd>
+          You need enough disorder early on to explore the space, then
+          gradually tighten to settle into a good solution. Too much order too
+          soon <a href="#path-dependence">locks in</a> bad configurations.
+        </dd>
+
+        <dt id="path-dependence">path dependence / lock-in</dt>
+        <dd>
+          Early choices constrain later ones, often irreversibly. The current
+          state of a system tells you as much about the sequence of past
+          decisions as it does about present fitness. <cite>Arthur</cite>
+        </dd>
+
+        <dt id="motivated-reasoning">motivated reasoning / talking one's book</dt>
+        <dd>
+          People find reasons to believe what benefits them. Vested interests,
+          entrenchment, and position-defending aren't separate from analysis -
+          they shape which evidence gets taken seriously and which gets
+          explained away.
+        </dd>
+
+        <dt id="red-queen">Red Queen effect</dt>
+        <dd>
+          You have to keep running just to stay in place. In co-evolutionary
+          dynamics, standing still means falling behind, because everything
+          around you is adapting too.
+        </dd>
+
+        <dt id="landauers-principle">Landauer's principle</dt>
+        <dd>
+          Erasing a bit of information has a minimum thermodynamic cost.
+          Information and energy are convertible - computation is physical,
+          and abstraction is never actually free.
+        </dd>
+
+        <dt id="dissipative-structures">dissipative structures</dt>
+        <dd>
+          Energy flow through a system organizes the system. Order doesn't
+          just persist despite thermodynamics - in open systems far from
+          equilibrium, it emerges because of it. <cite>Prigogine</cite>
+        </dd>
+
+        <dt id="underdetermination">underdetermination</dt>
+        <dd>
+          Evidence never fully determines theory. Any experiment tests a whole
+          web of assumptions at once, and multiple incompatible models can fit
+          the same data. Theory choice involves more than just the evidence.
+          <cite>Quine-Duhem</cite>
+        </dd>
+
+        <dt id="research-taste">research taste</dt>
+        <dd>
+          Some people develop good sense for generative theory. Since
+          <a href="#underdetermination">evidence underdetermines theory</a>,
+          theory does more than fit data - it influences future data
+          investment. See also <a href="#path-dependence">path dependence</a>.
+        </dd>
+      </dl>
+      <p class="back"><a href="/">← juno suárez</a></p>
+    </main>
+  </body>
+</html>

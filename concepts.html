@@ -80,11 +80,36 @@
         color: #887;
         font-size: 0.9em;
       }
+      dt .anchor {
+        color: #ccc;
+        text-decoration: none;
+        margin-left: 0.3em;
+        font-weight: normal;
+      }
+      dt:hover .anchor {
+        color: var(--primary-color);
+      }
+      .shuffle {
+        background: none;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        color: #887;
+        font-family: inherit;
+        font-size: 0.9em;
+        padding: 0.3em 0.7em;
+        cursor: pointer;
+        float: right;
+      }
+      .shuffle:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
     </style>
   </head>
   <body>
     <h1 class="title">concepts</h1>
     <main>
+      <button class="shuffle" hidden>shuffle</button>
       <p class="intro">
         a list of high-value explanatory ideas, frameworks, models, and thinkers
         for general purpose analysis, ideation, and problem solving. feel free to
@@ -347,5 +372,35 @@
       </dl>
       <p class="back"><a href="/">← juno suárez</a></p>
     </main>
+    <script>
+      document.querySelectorAll("dt[id]").forEach(function (dt) {
+        var a = document.createElement("a");
+        a.href = "#" + dt.id;
+        a.className = "anchor";
+        a.textContent = "#";
+        dt.appendChild(a);
+      });
+
+      var shuffleBtn = document.querySelector(".shuffle");
+      shuffleBtn.hidden = false;
+      shuffleBtn.addEventListener("click", function () {
+        var dl = document.querySelector("dl");
+        var entries = [];
+        var dts = dl.querySelectorAll("dt");
+        dts.forEach(function (dt) {
+          entries.push([dt, dt.nextElementSibling]);
+        });
+        for (var i = entries.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = entries[i];
+          entries[i] = entries[j];
+          entries[j] = tmp;
+        }
+        entries.forEach(function (pair) {
+          dl.appendChild(pair[0]);
+          dl.appendChild(pair[1]);
+        });
+      });
+    </script>
   </body>
 </html>
